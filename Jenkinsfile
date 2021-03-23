@@ -1,9 +1,11 @@
 pipeline {
-	agent any
+    agent {
+        docker { image 'adoptopenjdk:11-jdk-hotspot' }
+    }
     stages {
         stage('Test') {
             steps {
-                sh 'ls -l'
+                sh './gradlew test assemble'
             }
         }
     }
