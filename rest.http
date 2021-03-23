@@ -1,0 +1,16 @@
+GET http://localhost:8080/api/employees
+
+###
+
+GET http://localhost:8080/api/employees/1
+
+###
+
+POST http://localhost:8080/api/employees
+content-type: application/json
+
+{
+  "name": "John Doe"
+}
+
+###
