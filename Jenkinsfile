@@ -1,8 +1,12 @@
 pipeline {
     agent {
-        docker {
-            image 'adoptopenjdk:11-jdk-hotspot'
-            args '--network jenkins'
+        // docker {
+        //     image 'adoptopenjdk:11-jdk-hotspot'
+        //     args '--network jenkins'
+        // }
+        dockerfile {
+            filename 'Dockerfile.build'
+            args '--network jenkins --volume gradle-data:/root/.gradle'
         }
     }
     stages {
