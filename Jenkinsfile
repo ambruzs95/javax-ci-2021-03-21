@@ -30,12 +30,21 @@ pipeline {
         //         sh './gradlew -PbuildNumber=$BUILD_NUMBER sonarqube -Dsonar.userHome=/tmp/.sonar -Dsonar.host.url=http://employees-sonarqube:9000'
         //     }
         // }
-        stage('Docker image') {
+        // stage('Docker image') {
+        //     steps {
+        //         // sh './gradlew -PbuildNumber=${BUILD_NUMBER} docker'
+        //         // sh docker build -t employees
+        //         script {
+        //             def customImage = docker.build("employees:${env.BUILD_NUMBER}")
+        //         }
+        //     }
+        // }
+        stage('E2E test') {
             steps {
-                // sh './gradlew -PbuildNumber=${BUILD_NUMBER} docker'
-                // sh docker build -t employees
                 script {
-                    def customImage = docker.build("employees:${env.BUILD_NUMBER}")
+                    dir ('./integration-tests') {
+                        sh 'docker-compose -f docker-compose.prod.yml up --abort-on-container-exit '
+                    }
                 }
             }
         }
